@@ -39,6 +39,53 @@ mod_render_sliders_server <- function(id, data){
   })
 }
 
+mod_get_sliders_values_server <- function(id,
+                                          data,
+                                          validateButton,
+                                          resetButton){
+  moduleServer(id, function(input, output, session){
+    ns <- session$ns
+
+    const_prices <- reactiveVal({
+      data()$specs %>%
+        filter(.data$Min == .data$Max) %>%
+        .$Base
+    })
+
+    varying_prices <- reactiveVal({
+      data()$specs %>%
+        filter(.data$Min != .data$Max)
+    })
+
+    assumptions <- reactiveVal({
+      #list(price = data()$specs$Base)
+      data()$specs$Base
+    })
+
+
+    observeEvent(validateButton(), {
+      assumptions(#list(price =
+        c(
+        map_dbl(
+          to_snake_case(varying_prices()$Product), ~ input[[.x]]
+        ),
+        const_prices()
+      ))#)
+    })
+
+    observeEvent(resetButton(), {
+      map2(
+        .x = to_snake_case(varying_prices()$Product),
+        .y = varying_prices()$Base,
+        ~updateSliderInput(session, inputId = .x, value   = .y)
+      )
+    })
+
+    return(list(choice_price = reactive({as.numeric(assumptions())})))
+
+  })
+}
+
 ## To be copied in the UI
 # mod_render_sliders_ui("render_sliders_1")
 

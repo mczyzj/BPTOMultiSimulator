@@ -33,3 +33,24 @@ mod_test_texr_server <- function(id, data){
 
 ## To be copied in the server
 # mod_test_texr_server("test_texr_1")
+
+mod_test_prc_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    uiOutput(ns("DynamicText"))
+  )
+}
+
+#' test_texr Server Functions
+#'
+#' @noRd
+mod_test_prc_server <- function(id, data){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    output$DynamicText <- renderUI({
+      tagList(
+        renderText(data())
+      )
+    })
+  })
+}

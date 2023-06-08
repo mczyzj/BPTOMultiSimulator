@@ -5,11 +5,10 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-
   ### Setup data
   sets_list <- BPTOMultiSimulator::cj_example_list
 
-  ### SIDEBAR CONTENT ###
+  ### SIDEBAR CONTENT ####
   sidebar <- dashboardSidebar(
     sidebarMenu(
       tags$style(HTML(".sidebar-menu li a { font-size: 1.2em; }")),
@@ -31,7 +30,7 @@ app_ui <- function(request) {
       )
     )
   )
-
+ ### BODY CONTENT ####
   body <- dashboardBody(
     tabItems(
       tabItem(
@@ -41,6 +40,11 @@ app_ui <- function(request) {
             title = span(icon("info"), "test"),
             width = 12, solidHeader = TRUE, collapsible = TRUE,
             mod_test_texr_ui("test_texr_1")
+          ),
+          box(
+            title = span(icon("info"), "test"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            mod_test_prc_ui("test_prc_1")
           ),
           box(
             title = span(icon("sliders-h"), " Assumptions"),

@@ -1,5 +1,8 @@
+#' @importFrom dplyr filter
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
+#' @importFrom purrr map_chr map_dbl map2
 #' @importFrom shiny NS tagList column
+#' @importFrom snakecase to_snake_case
 #' @import bs4Dash
 #' @import shiny
 #' @import shinyWidgets

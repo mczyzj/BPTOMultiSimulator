@@ -15,6 +15,14 @@ This is a boilerplate for BPTO Simulator for multiple HB
   how to build the interface. As of now, it gives the insight in the
   Share of Preference, Revenue, Channel Sales and Profit.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/mczyzj/BPTOMultiSimulator}
+  \item Report bugs at \url{https://github.com/mczyzj/BPTOMultiSimulator/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Michał Czyż \email{m.czyz.j@gmail.com}
 
