@@ -6,30 +6,55 @@
 #' @noRd
 app_ui <- function(request) {
 
+  ### Setup data
+  sets_list <- BPTOMultiSimulator::cj_example_list
+
   ### SIDEBAR CONTENT ###
   sidebar <- dashboardSidebar(
     sidebarMenu(
       tags$style(HTML(".sidebar-menu li a { font-size: 1.2em; }")),
-      #mod_study_picker_ui("study_picker_1", study_list),
+      mod_study_picker_ui("study_picker_1", sets_list),
       menuItem("Main", tabName = "main", icon = icon("home")),
       menuItem("Simulator", tabName = "simulator", icon = icon("poll-h")),
-      br()#,
-      #actionButton(
-      #  "validate", span(icon("redo"), "Calculate"),
-      #  style="color: #fff; background-color: #ff2975; border-color: #8c1eff",
-      #  width = "80%"
-      #),
-      #actionButton(
-      #  "reset", span(icon("redo"), "Reset assumptions"),
-      #  style="color: #fff; background-color: #ff2975; border-color: #8c1eff",
-      #  width = "80%"
-      #),
-      #mod_sample_boxes_ui("sample_boxes_ui_1"),
-      #mod_sample_boxes_ui("sample_boxes_ui_2")
+      br(),
+      actionBttn(
+       inputId = "validate", label = span(icon("redo"), "Calculate"),
+       style = "unite",
+       color = "royal",
+       width = "80%"
+      ),
+      actionBttn(
+        inputId = "reset", label = span(icon("redo"), "Reset assumptions"),
+        style = "unite",
+        color = "royal",
+        width = "80%"
+      )
     )
   )
 
-  body <- dashboardBody()
+  body <- dashboardBody(
+    tabItems(
+      tabItem(
+        tabName = "main",
+        fluidRow(
+          box(
+            title = span(icon("info"), "test"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            mod_test_texr_ui("test_texr_1")
+          ),
+          box(
+            title = span(icon("sliders-h"), " Assumptions"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            column(
+              3, h4(span(icon("euro-sign"), " Price")),
+              shinyWidgets::chooseSliderSkin("Modern", color = "#ff2975"),
+              mod_render_sliders_ui("render_sliders_1")
+            )
+          )
+        )
+      )
+    )
+  )
 
   tagList(
     # Leave this function for adding external resources

@@ -10,7 +10,8 @@ Imports:
     bs4Dash,
     config (>= 0.3.1),
     golem (>= 0.4.0),
-    shiny (>= 1.7.4)
+    shiny (>= 1.7.4),
+    shinyWidgets
 Suggests: 
     spelling,
     testthat (>= 3.0.0)

@@ -1,7 +1,8 @@
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @importFrom shiny NS tagList column
-#' @import shiny
 #' @import bs4Dash
+#' @import shiny
+#' @import shinyWidgets
 #' @title BPTO Simulator
 #' @description This is a boilerplate for BPTO Simulator for multiple HB
 #'   conjoint models. It works with Alternative Specific design, where the

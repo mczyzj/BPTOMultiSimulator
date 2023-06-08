@@ -5,5 +5,13 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-  # Your application server logic
+  ### Setup data
+  sets_list <- BPTOMultiSimulator::cj_example_list
+
+  data_specs <- mod_study_picker_server(
+    "study_picker_1", sets_list, reactive(input$validate)
+  )
+
+   mod_test_texr_server("test_texr_1", data_specs$selected_study)
+   mod_render_sliders_server("render_sliders_1", data_specs$selected_study)
 }
