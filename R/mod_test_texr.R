@@ -37,19 +37,19 @@ mod_test_texr_server <- function(id, data){
 mod_test_prc_ui <- function(id){
   ns <- NS(id)
   tagList(
-    uiOutput(ns("DynamicText"))
+    uiOutput(ns("PRCText"))
   )
 }
 
 #' test_texr Server Functions
 #'
 #' @noRd
-mod_test_prc_server <- function(id, data){
+mod_test_prc_server <- function(id, prc){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    output$DynamicText <- renderUI({
+    output$PRCText <- renderUI({
       tagList(
-        renderText(data())
+        renderText(prc()$Base)
       )
     })
   })

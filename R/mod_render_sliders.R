@@ -21,10 +21,16 @@ mod_render_sliders_server <- function(id, data){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
+    names_sliders <- reactive(
+      data()$specs %>%
+        filter(.data$Min != .data$Max)
+    )
+
+
     output$DynamicSliders <- renderUI({
       tagList(
-        sliders_list <- vector("list", length(data()$specs$Product)),
-        for (i in 1:length(data()$specs$Product)) {
+        sliders_list <- vector("list", length(names_sliders()$Product)),
+        for (i in 1:length(names_sliders()$Product)) {
           sliders_list[[i]] <- sliderInput(
             inputId = ns(snakecase::to_snake_case(data()$specs[i, 1])),
             label   = data()$specs[i, 1],
@@ -41,47 +47,40 @@ mod_render_sliders_server <- function(id, data){
 
 mod_get_sliders_values_server <- function(id,
                                           data,
-                                          validateButton,
+                                          start,
                                           resetButton){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
-    const_prices <- reactiveVal({
-      data()$specs %>%
-        filter(.data$Min == .data$Max) %>%
-        .$Base
-    })
 
-    varying_prices <- reactiveVal({
-      data()$specs %>%
-        filter(.data$Min != .data$Max)
-    })
+    assumptions <- reactiveVal()
 
-    assumptions <- reactiveVal({
-      #list(price = data()$specs$Base)
-      data()$specs$Base
-    })
+    current_prices <- reactiveVal()
+    varrying_prices <- reactiveVal()
 
+    varrying_prices <- reactive(
+        data()$specs %>%
+          filter(.data$Min != .data$Max)
+      )
 
-    observeEvent(validateButton(), {
-      assumptions(#list(price =
-        c(
-        map_dbl(
-          to_snake_case(varying_prices()$Product), ~ input[[.x]]
-        ),
-        const_prices()
-      ))#)
-    })
+    sliders_vec2 <- reactive(to_snake_case(varrying_prices()$Product))
+
+    assumptions <- reactive(list(
+      Base   = map_dbl(sliders_vec2(), ~input[[.x]])
+    ))
+
 
     observeEvent(resetButton(), {
       map2(
-        .x = to_snake_case(varying_prices()$Product),
-        .y = varying_prices()$Base,
+        .x = to_snake_case(varrying_prices()$Product),
+        .y = varrying_prices()$Base,
         ~updateSliderInput(session, inputId = .x, value   = .y)
       )
     })
 
-    return(list(choice_price = reactive({as.numeric(assumptions())})))
+    return(list(
+      prices = reactive({ as.list(assumptions()) })
+    ))
 
   })
 }
