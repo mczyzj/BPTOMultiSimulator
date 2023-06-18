@@ -63,11 +63,13 @@ mod_get_sliders_values_server <- function(id,
           filter(.data$Min != .data$Max)
       )
 
-    sliders_vec2 <- reactive(to_snake_case(varrying_prices()$Product))
+    sliders_vec <- reactive(to_snake_case(varrying_prices()$Product))
 
-    assumptions <- reactive(list(
-      Base   = map_dbl(sliders_vec2(), ~input[[.x]])
-    ))
+    assumptions <- reactive(
+      list(
+        Base   = map_dbl(sliders_vec(), ~input[[.x]])
+      )
+    )
 
 
     observeEvent(resetButton(), {
