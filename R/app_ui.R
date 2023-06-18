@@ -36,29 +36,57 @@ app_ui <- function(request) {
       tabItem(
         tabName = "main",
         fluidRow(
-          box(
-            title = span(icon("info"), "test"),
-            width = 12, solidHeader = TRUE, collapsible = TRUE,
-            mod_test_texr_ui("test_texr_1")
-          ),
-          box(
-            title = span(icon("info"), "test"),
-            width = 12, solidHeader = TRUE, collapsible = TRUE,
-            mod_test_prc_ui("test_prc_1")
-          ),
-          box(
+          ### ASSUMPTIONS BOX ###
+            box(
+              title = span(icon("info"), "test"),
+              width = 12, solidHeader = TRUE, collapsible = TRUE,
+              mod_test_texr_ui("test_texr_1")
+            ),
+            box(
+              title = span(icon("info"), "test"),
+              width = 12, solidHeader = TRUE, collapsible = TRUE,
+              mod_test_prc_ui("test_prc_1")
+            ),
+            box(
+              title = span(icon("info"), "test"),
+              width = 12, solidHeader = TRUE, collapsible = TRUE,
+              mod_test_dm_ui("test_dm_1")
+            ),
+            box(
+              title = span(icon("info"), "test"),
+              width = 12, solidHeader = TRUE, collapsible = TRUE,
+              mod_test_cost_ui("test_cost_1")
+            ),
+            box(
+              title = span(icon("info"), "test"),
+              width = 12, solidHeader = TRUE, collapsible = TRUE,
+              mod_test_ms_ui("test_ms_1")
+            ),
+          column(width = 3, box(
             title = span(icon("sliders-h"), " Assumptions"),
             width = 12, solidHeader = TRUE, collapsible = TRUE,
-            column(
-              3, h4(span(icon("euro-sign"), " Price")),
-              shinyWidgets::chooseSliderSkin("Modern", color = "#ff2975"),
-              mod_render_sliders_ui("render_sliders_1")
-            )
-          )
-        )
+            h4(span(icon("euro-sign"), " Price")),
+            shinyWidgets::chooseSliderSkin("Modern", color = "#ff2975"),
+            mod_render_sliders_ui("render_sliders_1")
+          )),
+          column(width = 3, box(
+            title = h4(span(icon("percent")), " Distribution margin"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            mod_render_dist_margin_ui("render_dm_1")
+          )),
+          column(width = 3, box(
+            h4(span(icon("calculator")), " Cost"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            mod_render_cost_ui("render_cost_1")
+          )),
+          column(width = 3, box(
+            h4(span(icon("globe")), " Market size"),
+            width = 12, solidHeader = TRUE, collapsible = TRUE,
+            mod_market_size_ui("market_size_1")
+          ))
       )
     )
-  )
+  ))
 
   tagList(
     # Leave this function for adding external resources

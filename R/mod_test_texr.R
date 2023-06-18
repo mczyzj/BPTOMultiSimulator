@@ -54,3 +54,67 @@ mod_test_prc_server <- function(id, prc){
     })
   })
 }
+
+mod_test_dm_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    uiOutput(ns("DMText"))
+  )
+}
+
+#' test_texr Server Functions
+#'
+#' @noRd
+mod_test_dm_server <- function(id, dist_margin){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    output$DMText <- renderUI({
+      tagList(
+        renderText(dist_margin()$dm)
+      )
+    })
+  })
+}
+
+mod_test_cost_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    uiOutput(ns("COSTText"))
+  )
+}
+
+#' test_texr Server Functions
+#'
+#' @noRd
+mod_test_cost_server <- function(id, cost){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    output$COSTText <- renderUI({
+      tagList(
+        renderText(cost()$cost)
+      )
+    })
+  })
+}
+
+
+mod_test_ms_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    uiOutput(ns("MSText"))
+  )
+}
+
+#' test_texr Server Functions
+#'
+#' @noRd
+mod_test_ms_server <- function(id, ms){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    output$MSText <- renderUI({
+      tagList(
+        renderText(ms())
+      )
+    })
+  })
+}
